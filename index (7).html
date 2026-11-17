@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#003d61">
+  <meta name="description" content="Descubrí el Monumento Nacional a la Bandera de Rosario: historia, arquitectura, recorridos e información para organizar tu visita.">
+  <title>Monumento a la Bandera — Rosario, Argentina</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .tl-item.is-live .tl-dot{animation:tlPulse 2.2s ease-out infinite}
+    @keyframes tlPulse{0%{box-shadow:0 0 0 0 rgba(0,159,227,.5)}70%{box-shadow:0 0 0 16px rgba(0,159,227,0)}100%{box-shadow:0 0 0 0 rgba(0,159,227,0)}}
+
+    .architecture-photo{overflow:hidden}
+    .architecture-photo img{transition:transform .9s cubic-bezier(.22,.8,.3,1)}
+    .architecture-card:hover .architecture-photo img{transform:scale(1.07)}
+
+    .sea{position:relative;margin-top:64px;border-radius:28px;overflow:hidden;background:linear-gradient(180deg,#003d61 0%,#00263d 100%);border:1px solid rgba(255,255,255,.14)}
+    .ideas.sea{padding-top:0;border-top:0}
+    .sea-inner{position:relative;z-index:1;padding:clamp(28px,5vw,64px)}
+    .sea-sub{max-width:560px;margin-top:14px;opacity:.8;line-height:1.6}
+
+    .sea-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(24px,4vw,56px);align-items:start;margin-top:40px}
+
+    .sea-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+    .sea-name{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:baseline;gap:16px;width:100%;padding:10px 0;position:relative;
+      font-family:'Montserrat',sans-serif;font-weight:700;font-size:clamp(1.4rem,3.2vw,2.6rem);line-height:1.1;letter-spacing:-.01em;
+      color:rgba(255,255,255,.55);-webkit-text-stroke:0;transition:transform .45s cubic-bezier(.22,.8,.3,1),color .3s}
+    .sea-n{font-size:.8rem;font-weight:600;letter-spacing:.14em;color:#009fe3;-webkit-text-stroke:0}
+    .sea-name::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:10px;opacity:0;transition:opacity .3s;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='10'%3E%3Cpath d='M0 5 Q10 0 20 5 T40 5' fill='none' stroke='%23009fe3' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x;
+      -webkit-mask-image:linear-gradient(90deg,#000 60%,transparent);mask-image:linear-gradient(90deg,#000 60%,transparent)}
+    @keyframes seaUnderline{to{background-position:40px 0}}
+    .sea-name::after{animation:seaUnderline 3s linear infinite}
+    .sea-name:hover,.sea-name:focus-visible,.sea-name.is-active{color:#fff;transform:translateX(14px)}
+    .sea-name:hover::after,.sea-name:focus-visible::after,.sea-name.is-active::after{opacity:1}
+    .sea-name:focus-visible{outline:2px solid #009fe3;outline-offset:4px;border-radius:6px}
+
+    .sea-panel{position:sticky;top:110px;padding:28px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(6px);color:#fff}
+    .sea-panel.swap{animation:seaSwap .55s cubic-bezier(.22,.8,.3,1)}
+    @keyframes seaSwap{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+    .sea-panel-num{display:block;font-size:3.4rem;font-weight:700;line-height:1;color:#009fe3;opacity:.9}
+    .sea-panel-title{margin:12px 0 8px;font-size:1.3rem;font-weight:700}
+    .sea-panel-text{opacity:.85;line-height:1.6;margin:0 0 18px}
+    .sea-panel-why{margin:0;padding-top:16px;border-top:1px dashed rgba(255,255,255,.25);line-height:1.6}
+    .sea-panel-why b{display:block;margin-bottom:6px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#009fe3}
+
+    .sea-ripple{position:absolute;z-index:0;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:1.5px solid rgba(0,159,227,.7);pointer-events:none;animation:seaRipple 1.4s ease-out forwards}
+    @keyframes seaRipple{to{transform:scale(40);opacity:0}}
+
+    .sea-chosen{position:relative;margin-top:72px;padding-top:40px;text-align:center;overflow:hidden}
+    .sea-horizon{position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:scaleX(0);transition:transform 1.6s cubic-bezier(.22,.8,.3,1)}
+    .sea-chosen.is-seen .sea-horizon{transform:scaleX(1)}
+    .sea-chosen-kicker{margin:26px 0 6px;font-size:.78rem!important;letter-spacing:.2em;color:#009fe3;font-weight:600}
+    .sea-chosen-name{margin:0;font-size:clamp(2.4rem,8vw,6rem);font-weight:700;letter-spacing:.08em;color:#fff}
+    .sea-chosen-text{max-width:520px;margin:14px auto 0;opacity:.85;line-height:1.6}
+
+    @media (max-width:1000px){
+      .sea-layout{grid-template-columns:1fr}
+      .sea-panel{position:static}
+      .sea-name:hover,.sea-name.is-active{transform:translateX(8px)}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .sea-name::after,.sea-panel.swap,.sea-ripple{animation:none}
+      .sea-horizon{transition:none}
+    }
+    em{font-family:'Segoe UI',Arial,sans-serif!important;font-style:normal!important}
+
+    .scroll-progress{position:fixed;left:0;right:0;bottom:0;height:3px;z-index:9999;pointer-events:none;
+      background:linear-gradient(90deg,#009fe3,#7fd4f5);transform-origin:left;transform:scaleX(var(--p,0))}
+
+    .site-header{transition:box-shadow .4s ease}
+    .site-header.is-scrolled{box-shadow:0 8px 28px rgba(0,30,50,.18)}
+    .main-nav a{transition:text-decoration-color .3s}
+    .main-nav a.is-current{text-decoration:underline;text-decoration-color:#009fe3;text-decoration-thickness:2px;text-underline-offset:8px}
+
+    .hero-content{will-change:translate}
+    .architecture-photo img{scale:1.12;will-change:translate}
+
+    .curtain{clip-path:inset(0 0 100% 0)}
+    .curtain.is-open{clip-path:inset(0 0 0 0)}
+    .curtain.is-done{clip-path:none}
+
+    .history-image-wrap img,
+    .first-sketch img,
+    .first-test img{transition:clip-path 1.2s cubic-bezier(.22,.8,.3,1),transform .6s cubic-bezier(.22,.8,.3,1),box-shadow .6s ease}
+    .first-sketch a:hover img,
+    .first-test a:hover img{transform:translateY(-6px) rotate(-.6deg);box-shadow:0 22px 40px rgba(0,40,70,.25)}
+
+    .visit-photo{background-position:50% calc(50% + var(--py,0px))}
+
+    .button span,.inline-link span,.header-cta span,.hero-text-link span,.architecture-card-copy a span{display:inline-block;transition:transform .35s cubic-bezier(.22,.8,.3,1)}
+    .button:hover span,.inline-link:hover span,.header-cta:hover span,.hero-text-link:hover span,.architecture-card-copy a:hover span{transform:translate(3px,-3px)}
+    .hero-actions .button-light:hover span{transform:translateY(4px)}
+
+    @media (prefers-reduced-motion:reduce){
+      .curtain{clip-path:none}
+      .architecture-photo img{scale:1}
+    }
+
+    .closing{background:linear-gradient(180deg,#f4f9fc 0%,#e8f3fa 100%);color:#003d61;overflow:hidden}
+    .closing-inner{max-width:980px;margin:0 auto;text-align:center;padding-top:clamp(24px,4vw,56px)}
+    .closing-logo{display:block;width:min(820px,100%);height:auto;margin:28px auto 0}
+    .closing-horizon{height:2px;margin:28px auto 0;width:min(820px,100%);background:linear-gradient(90deg,transparent,#009fe3,transparent)}
+    .closing h2{margin:44px 0 0;color:#003d61;font-size:clamp(42px,6vw,78px);line-height:1.04}
+    .closing-end{margin-top:32px}
+    .closing-line{margin:0 0 26px;font-size:clamp(1.2rem,2.4vw,1.7rem)!important;font-weight:600;line-height:1.35;color:#003d61}
+    .closing.is-armed .closing-logo{clip-path:inset(0 100% 0 0);transition:clip-path 1.8s cubic-bezier(.22,.8,.3,1)}
+    .closing.is-armed .closing-horizon{transform:scaleX(0);transition:transform 1.8s cubic-bezier(.22,.8,.3,1) .2s}
+    .closing.is-seen .closing-logo{clip-path:inset(0 0 0 0)}
+    .closing.is-seen .closing-horizon{transform:scaleX(1)}
+
+    @media (prefers-reduced-motion:reduce){
+      .closing.is-armed .closing-logo,
+      .closing.is-armed .closing-horizon{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="topline" aria-hidden="true"><span></span><span></span><span></span></div>
+  <header class="site-header">
+<a class="brand" href="#inicio" aria-label="Monumento Horizonte, inicio">
+  <img src="hori.png" alt="Monumento Horizonte" class="brand-logo">
+</a>
+    <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
+    <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+      <a href="#historia">Historia</a>
+      <a href="#arquitectura">Arquitectura</a>
+      <a href="#recorrido">El recorrido</a>
+      <a href="#proceso">Proceso creativo</a>
+      <a href="#primeras-ideas">Primeras ideas</a>
+      <a href="#visita">Planificá tu visita</a>
+    </nav>
+    <a class="header-cta" href="#visita">Cómo llegar <span>↗</span></a>
+  </header>
+
+  <main id="inicio">
+    <section class="hero">
+      <iframe
+        class="hero-video"
+        src="https://www.youtube.com/embed/p4MbU6lNYwE?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=p4MbU6lNYwE&amp;controls=0&amp;rel=0&amp;modestbranding=1"
+        title="Videohorizonte"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+<div class="hero-shade"></div>
+<div class="hero-content reveal">
+        <p class="eyebrow"><span class="eyebrow-line"></span> ROSARIO · ARGENTINA</p>
+        <h1>La forma de<br>nuestra historia.</h1>
+        <p class="hero-copy">Un símbolo que se visita, se aprende y se vive en comunidad. Descubrí el lugar donde la bandera argentina se convirtió en memoria compartida.</p>
+        <div class="hero-actions">
+          <a class="button button-light" href="#historia">Descubrí el Monumento <span>↓</span></a>
+          <a class="hero-text-link" href="#visita">Organizá tu visita <span>↗</span></a>
+        </div>
+      </div>
+      <a class="hero-scroll" href="#datos" aria-label="Desplazarse hacia abajo"><span></span> DESLIZÁ PARA EXPLORAR</a>
+    </section>
+
+
+
+    <section class="history section-pad" id="historia">
+      <div class="section-kicker"><span>01</span><span>HISTORIA · IDENTIDAD · MEMORIA</span></div>
+      <div class="history-grid">
+        <div class="history-title reveal"><p class="eyebrow dark">EL ORIGEN DE UN SÍMBOLO</p><h2>Una historia<br>que nos <em>une.</em></h2></div>
+        <div class="history-copy reveal">
+          <p class="lead">Es la obra más emblemática de Rosario. Está a pasos del río y se conecta al casco histórico a través del Pasaje Juramento, ocupando el sitio donde en 1812 Manuel Belgrano izó por primera vez la bandera argentina.</p>
+          <p>Desde fines del siglo XIX, comenzó a proyectarse la construcción de un monumento que rindiera homenaje al espíritu de independencia y de libertad enarbolado por el General Belgrano al darle su nueva enseñanza a la incipiente nación.</p>
+          <p>Es en ese mismo relieve de barrancas aplanadas, pobladas de palos borrachos, jacarandás y ceibos, donde el 20 de junio de 1957 fue inaugurado el Monumento Nacional a la Bandera, obra del arquitecto e ingeniero Àngel Guido.</p>
+          <p>Hoy es escenario de los actos centrales del Día de la Bandera, de ceremonias escolares y de visitas de todo el país: un espacio donde la historia se encuentra con la vida cotidiana de la ciudad.</p>
+        </div>
+      </div>
+      <div class="history-image-wrap reveal">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Monumento_a_la_Bandera%2C_Rosario%2C_Santa_Fe_%28Argentina%29.jpg" alt="El Propileo y la torre del Monumento iluminados al atardecer" loading="lazy">
+        <div class="image-note"><span>01 / ROSARIO</span><strong>Un patrimonio vivo, a cielo abierto.</strong></div>
+      </div>
+    </section>
+
+    <section class="architecture section-pad" id="arquitectura">
+      <div class="section-kicker light-kicker"><span>02</span><span>ARQUITECTURA · FORMAS Y SIGNIFICADOS</span></div>
+      <div class="architecture-heading reveal"><p class="eyebrow">UN RECORRIDO EN TRES PARTES</p><h2>Un monumento.<br><em>Tres símbolos.</em></h2><p>Seguí el eje principal para comprender cómo cada espacio representa una etapa de la organización nacional.</p></div>
+      <div class="architecture-grid">
+        <article class="architecture-card reveal">
+          <div class="architecture-photo"><img src="https://tripin.travel/wp-content/uploads/2017/01/monumento-a-la-bandera-rosario-5-1024x683.jpg" alt="La torre del Monumento iluminada de noche" loading="lazy"><span>01</span></div>
+          <div class="architecture-card-copy"><h3>La Proa<br>y la Torre</h3><p>El sector que mira al río reúne la Gesta de Mayo, la memoria de Belgrano y una visión simbólica del territorio argentino.</p><a href="https://www.monumentoalabandera.gob.ar/arquitectura/la-proa" target="_blank" rel="noopener noreferrer" aria-label="Conocer la Proa y la Torre">Explorar <span>↗</span></a></div>
+        </article>
+        <article class="architecture-card reveal">
+          <div class="architecture-photo"><img src="https://live.staticflickr.com/2470/3568921476_b98eb6a112_b.jpg" alt="Vista del conjunto arquitectónico desde lo alto" loading="lazy"><span>02</span></div>
+          <div class="architecture-card-copy"><h3>El Patio<br>Cívico</h3><p>La gran escalinata conecta la Proa con el Propileo y representa el esfuerzo colectivo que condujo a la organización nacional.</p><a href="https://www.monumentoalabandera.gob.ar/page/arquitectura" target="_blank" rel="noopener noreferrer" aria-label="Conocer el Patio Cívico">Explorar <span>↗</span></a></div>
+        </article>
+        <article class="architecture-card reveal">
+          <div class="architecture-photo"><img src="https://tripin.travel/wp-content/uploads/2017/01/monumento-a-la-bandera-rosario-3.jpg" alt="La torre y la base monumental vistas desde el entorno urbano" loading="lazy"><span>03</span></div>
+          <div class="architecture-card-copy"><h3>El Propileo<br>Triunfal</h3><p>Inspirado en los templos clásicos, simboliza a la Nación jurídicamente organizada por la Constitución de 1853.</p><a href="https://www.monumentoalabandera.gob.ar/arquitectura/galeria-de-honor" target="_blank" rel="noopener noreferrer" aria-label="Conocer el Propileo y la Galería de Honor">Explorar <span>↗</span></a></div>
+        </article>
+      </div>
+
+      <div class="plan reveal" id="plano">
+        <div class="plan-head">
+          <p class="eyebrow">EL MAPA</p>
+          <h3>Recorré el conjunto <em>desde arriba.</em></h3>
+          <p>Pasá el mouse por cada sector del mapa para conocer su significado.</p>
+        </div>
+        <div class="plan-layout">
+          <div class="plan-map">
+            <div class="plan-stage">
+            <img src="mapa.png" width="1654" height="4421" alt="Mapa del Monumento con los sectores 01 La Proa y la Torre, 02 El Patio Cívico y 03 El Propileo Triunfal">
+            <svg viewBox="0 0 1654 4421" role="group" aria-label="Zonas interactivas del mapa">
+              <defs>
+                <mask id="planMask" maskUnits="userSpaceOnUse" x="0" y="0" width="1654" height="4421" style="mask-type:alpha">
+                  <image href="mapa.png" x="0" y="0" width="1654" height="4421"/>
+                </mask>
+              </defs>
+              <g class="plan-zone" data-zone="proa" tabindex="0" role="button" aria-label="01 · La Proa y la Torre">
+                <polygon mask="url(#planMask)" points="730,3370 925,3370 925,3450 1050,3450 1050,3530 1370,3530 1550,3500 1630,3600 1630,3700 1580,3780 1360,3860 1365,4100 1262,4200 1123,4300 1028,4400 827,4421 712,4400 624,4300 495,4200 384,4100 390,3860 76,3780 22,3700 21,3600 92,3520 284,3530 604,3530 604,3450 730,3450"/>
+              </g>
+              <g class="plan-zone" data-zone="patio" tabindex="0" role="button" aria-label="02 · El Patio Cívico">
+                <polygon mask="url(#planMask)" points="500,1800 1150,1800 1150,1840 1270,1840 1270,1900 1390,1900 1390,2280 1450,2280 1450,2390 1390,2390 1390,3060 1420,3060 1420,3240 1190,3240 1190,3340 1020,3340 1020,3440 640,3440 640,3340 470,3340 470,3240 250,3240 250,3060 265,2390 205,2390 205,2280 265,2280 265,1900 390,1900 390,1840 500,1840"/>
+              </g>
+              <g class="plan-zone" data-zone="propileo" tabindex="0" role="button" aria-label="03 · El Propileo Triunfal">
+                <polygon mask="url(#planMask)" points="568,0 1140,0 1140,220 1170,220 1170,490 1200,490 1200,1480 1220,1500 1220,1700 1260,1700 1260,1770 1400,1770 1400,1880 1250,1880 1250,1840 1150,1840 1150,1800 500,1800 500,1840 400,1840 400,1880 250,1880 250,1770 390,1770 390,1700 430,1700 430,1500 450,1480 450,490 485,490 485,220 515,220 515,0"/>
+              </g>
+            </svg>
+            </div>
+            <div class="plan-tip" aria-hidden="true"></div>
+          </div>
+          <aside class="plan-info" aria-live="polite">
+            <span class="plan-info-num">—</span>
+            <h4 class="plan-info-title">Elegí un sector</h4>
+            <p class="plan-info-text">Cada número del plano corresponde a una de las tres partes del Monumento.</p>
+            <p class="plan-info-extra"></p>
+            <a class="plan-info-link" href="https://monumentoalabandera.gob.ar/" target="_blank" rel="noopener noreferrer" hidden>Explorar <span>↗</span></a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="timeline section-pad" id="recorrido">
+
+  <div class="section-kicker">
+    <span>03</span>
+    <span>HISTORIA · IDENTIDAD · MEMORIA</span>
+  </div>
+
+  <div class="timeline-intro reveal">
+    <p class="eyebrow dark">DEL PRIMER IZAMIENTO A UN SÍMBOLO NACIONAL</p>
+    <h2>Construir una<br><em>identidad.</em></h2>
+    <p>Seis momentos que cuentan cómo el sitio del primer izamiento se convirtió en un símbolo para Rosario y todo el país.</p>
+  </div>
+
+  <div class="tl reveal">
+    <div class="tl-line" aria-hidden="true">
+      <span class="tl-fill"></span>
+    </div>
+
+    <ol class="tl-track">
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">1812</span>
+        <h3>El primer izamiento</h3>
+        <p>El 27 de febrero, Belgrano izó por primera vez la Bandera Argentina junto a las baterías Libertad e Independencia, a orillas del Paraná.</p>
+      </li>
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">1872</span>
+        <h3>Una primera propuesta</h3>
+        <p>Nicolás Grondona propuso construir dos pirámides conmemorativas a orillas del río. Aunque no se concretó, inició la búsqueda de un monumento.</p>
+      </li>
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">1910</span>
+        <h3>El proyecto de Lola Mora</h3>
+        <p>Para el Centenario, Lola Mora proyectó un conjunto escultórico que no llegó a emplazarse. Algunas obras se integraron luego al Pasaje Juramento.</p>
+      </li>
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">1943</span>
+        <h3>La piedra fundamental</h3>
+        <p>En una gran movilización ciudadana se colocó la piedra fundamental, reafirmando el propósito de conmemorar el primer izamiento.</p>
+      </li>
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">1957</span>
+        <h3>La inauguración</h3>
+        <p>Tras catorce años de construcción, el Monumento fue inaugurado el 20 de junio ante una multitud que celebró este símbolo nacional.</p>
+      </li>
+
+      <li class="tl-item">
+        <span class="tl-dot"></span>
+        <span class="tl-year">Hoy</span>
+        <h3>Un símbolo vivo</h3>
+        <p>Sigue siendo sede de los actos del Día de la Bandera, de promesas de lealtad y de encuentros ciudadanos durante todo el año.</p>
+      </li>
+
+    </ol>
+  </div>
+</section>
+
+    <section class="process section-pad" id="proceso">
+      <div class="section-kicker light-kicker">
+        <span>04</span>
+        <span>PROCESO CREATIVO · LETRAS · IDENTIDAD</span>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-title reveal">
+          <p class="eyebrow">DETRÁS DE LA TIPOGRAFÍA</p>
+          <h2>¿Cómo nació<br><em>HORIZONTE?</em></h2>
+        </div>
+
+        <div class="process-copy reveal">
+          <p class="lead">HORIZONTE nació a partir de un trabajo de observación e investigación sobre las letras edilicias del Monumento Nacional a la Bandera, ubicado en la ciudad de Rosario. Desde el principio, nos interesó conocer un poco más sobre su arquitectura, su historia y, especialmente, las formas de las letras que forman parte de este espacio tan importante para nuestra ciudad.</p>
+          <p>Durante el recorrido, nos llamó la atención la relación que tiene el Monumento con las Islas Malvinas, ya que es un lugar que representa nuestra historia, la memoria y la soberanía argentina. A partir de esto, comenzamos a pensar cómo podíamos transmitir esos valores a través de una propuesta tipográfica, sin perder la esencia de las letras originales.</p>
+          <p>Así surgió el nombre HORIZONTE, inspirado en la relación entre el río Paraná, el cielo y esa línea que parece unirlos a lo lejos. También lo relacionamos con las Islas Malvinas, porque el horizonte nos invita a mirar más allá, a recordar nuestra historia y a mantener presente aquello que forma parte de nuestra identidad como país.</p>
+          <p>Para desarrollar nuestra tipografía, tomamos como referencia las formas geométricas, las proporciones y los detalles de las letras edilicias. A partir de diferentes bocetos, pruebas y exploraciones, fuimos construyendo una nueva propuesta que combina características de la arquitectura del Monumento con una mirada más actual.</p>
+          <p>Nuestra intención no fue simplemente copiar las letras originales, sino reinterpretarlas y darles una nueva identidad, respetando su historia y su significado. Buscamos que cada letra mantuviera esa sensación de firmeza, estructura y presencia que transmite el Monumento.</p>
+        </div>
+      </div>
+
+      <div class="ideas sea reveal">
+        <div class="sea-inner">
+          <div class="ideas-head">
+            <p class="eyebrow">ANTES DE LLEGAR AL NOMBRE</p>
+            <h3>Nombres a la <em>deriva.</em></h3>
+            <p class="sea-sub">Seis nombres navegaron hasta acá. Pasá el mouse (o tocá) por cada uno para ver qué decía y por qué lo soltamos.</p>
+          </div>
+
+          <div class="sea-layout">
+            <ul class="sea-list">
+              <li><button type="button" class="sea-name is-active" aria-pressed="true"
+                data-num="01" data-title="Monumento a la memoria"
+                data-text="Un nombre que ponía el foco en el recuerdo y en la historia del lugar."
+                data-why="Miraba solo hacia atrás. Queríamos un nombre que también mirara hacia adelante."><span class="sea-n">01</span><span class="sea-t">Monumento a la memoria</span></button></li>
+
+              <li><button type="button" class="sea-name" aria-pressed="false"
+                data-num="02" data-title="Glorario"
+                data-text="«Glor» viene de gloria; «ario», de Rosario. Además, termina en «río», por el Paraná."
+                data-why="El juego de palabras era lindo, pero sonaba a invento y se alejaba de las letras del Monumento."><span class="sea-n">02</span><span class="sea-t">Glorario</span></button></li>
+
+              <li><button type="button" class="sea-name" aria-pressed="false"
+                data-num="03" data-title="Lealtad"
+                data-text="Pensamos en «Monumento a la Lealtad» o «Lealtad» solo, porque ahí se jura a la bandera."
+                data-why="Hablaba del juramento, pero dejaba afuera al río y a la arquitectura."><span class="sea-n">03</span><span class="sea-t">Lealtad</span></button></li>
+
+              <li><button type="button" class="sea-name" aria-pressed="false"
+                data-num="04" data-title="Faro Celeste"
+                data-text="Una imagen de guía y de referencia, ligada al celeste de la bandera."
+                data-why="Un faro es una luz puntual; el Monumento es un conjunto que se recorre."><span class="sea-n">04</span><span class="sea-t">Faro Celeste</span></button></li>
+
+              <li><button type="button" class="sea-name" aria-pressed="false"
+                data-num="05" data-title="El Izamiento · Espacio Bandera · Centro de la Bandera"
+                data-text="Variantes que apuntaban directamente al hecho histórico y al símbolo."
+                data-why="Nombraban el hecho, pero no la sensación del lugar. Eran descriptivos, no identitarios."><span class="sea-n">05</span><span class="sea-t">El Izamiento</span></button></li>
+
+              <li><button type="button" class="sea-name" aria-pressed="false"
+                data-num="06" data-title="Albiceleste"
+                data-text="Combinación de blanco y celeste, los colores de la bandera."
+                data-why="Se quedaba en los colores y no hablaba del Monumento ni de su ubicación frente al río."><span class="sea-n">06</span><span class="sea-t">Albiceleste</span></button></li>
+            </ul>
+
+            <aside class="sea-panel" aria-live="polite">
+              <span class="sea-panel-num">01</span>
+              <h4 class="sea-panel-title">Monumento a la memoria</h4>
+              <p class="sea-panel-text">Un nombre que ponía el foco en el recuerdo y en la historia del lugar.</p>
+              <p class="sea-panel-why"><b>Por qué lo soltamos</b><span>Miraba solo hacia atrás. Queríamos un nombre que también mirara hacia adelante.</span></p>
+            </aside>
+          </div>
+
+          <div class="sea-chosen">
+            <div class="sea-horizon" aria-hidden="true"></div>
+            <p class="sea-chosen-kicker">✓ EL NOMBRE ELEGIDO</p>
+            <h4 class="sea-chosen-name">HORIZONTE</h4>
+            <p class="sea-chosen-text">Relaciona el Monumento con el río Paraná y con una idea de futuro, identidad y encuentro. Fue la que elegimos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="first-ideas section-pad" id="primeras-ideas">
+      <div class="section-kicker">
+        <span>05</span>
+        <span>BOCETOS · PRUEBAS · EXPLORACIÓN</span>
+      </div>
+
+      <div class="first-intro reveal">
+        <p class="eyebrow dark">ANTES DE LA VERSIÓN FINAL</p>
+        <h2>Las primeras<br><em>ideas.</em></h2>
+        <p>Antes de llegar a la tipografía definitiva, dibujamos las letras a mano sobre una grilla y probamos distintas variantes en digital: cortes, aperturas y cambios de peso para encontrar el equilibrio entre la firmeza del Monumento y una mirada más actual.</p>
+      </div>
+
+      <div class="first-grid">
+        <figure class="first-sketch reveal">
+          <a href="boceto-horizonte.jpg" target="_blank" rel="noopener noreferrer">
+            <img src="boceto-horizonte.jpg" alt="Boceto a mano de la palabra HORIZONTE con anotaciones sobre nodos y proporciones" loading="lazy">
+          </a>
+          <figcaption>
+            <span>Boceto</span>
+            <strong>Construcción a mano sobre grilla.</strong>
+            <p>Primer dibujo de la palabra completa, con anotaciones al margen: «menos nodos = es mejor».</p>
+          </figcaption>
+        </figure>
+
+        <div class="first-tests">
+          <figure class="first-test reveal">
+            <a href="horizonte-prueba-1.png" target="_blank" rel="noopener noreferrer">
+              <img src="horizonte-prueba-1.png" alt="Cuatro variantes digitales de HORIZONTE con cortes en la N, la O, la R y la E" loading="lazy">
+            </a>
+            <figcaption>
+              <span>Ideas</span>
+              <strong>Cortes y aperturas.</strong>
+              <p>Lluvia de ideas de como podria ser el logo final</p>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="closing section-pad" id="cierre">
+      <div class="section-kicker">
+        <span>06</span>
+        <span>VERSIÓN FINAL · CIERRE</span>
+      </div>
+
+      <div class="closing-inner">
+        <p class="eyebrow dark reveal">EL LOGO FINAL</p>
+
+        <img class="closing-logo" src="hori.png" width="2419" height="356" alt="Logo final de la tipografía HORIZONTE">
+        <div class="closing-horizon" aria-hidden="true"></div>
+
+        <h2 class="reveal">Una letra que mira<br>hacia el <em>horizonte.</em></h2>
+
+        <div class="closing-end reveal">
+          <p class="closing-line">El horizonte se mira mejor<br>estando ahí.</p>
+          <a class="button button-blue" href="#visita">Planificá tu visita <span>↓</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="visit" id="visita">
+      <div class="visit-photo" role="img" aria-label="Vista panorámica de la ciudad y el río desde el Monumento"></div>
+      <div class="visit-panel reveal">
+        <p class="eyebrow">07 · PLANIFICÁ TU VISITA</p>
+        <h2>Nos vemos<br><em>junto al río.</em></h2>
+        <p class="visit-lead">Recorré sus espacios, descubrí sus historias y mirá Rosario desde otra perspectiva.</p>
+        <div class="visit-details">
+          <div><span>UBICACIÓN</span><strong>Santa Fe 581<br>Rosario, Santa Fe</strong></div>
+          <div><span>HORARIOS DE REFERENCIA</span><strong>Martes a domingo<br>9:00 a 18:00 h</strong></div>
+          <div><span>CONTACTO</span><strong>info@monumentoalabandera.gob.ar<br>+54 341 480 2239</strong></div>
+        </div>
+        
+        <div class="visit-actions"><a class="button button-blue" href="https://monumentoalabandera.gob.ar/visita" target="_blank" rel="noopener noreferrer"> Más Información  <span>↗</span></a><a class="inline-link" href="https://www.google.com/maps/search/?api=1&query=Monumento+Nacional+a+la+Bandera+Rosario" target="_blank" rel="noopener noreferrer">Cómo llegar <span>↗</span></a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main">
+      <div class="footer-identity">
+        <a class="footer-brand" href="#inicio"><span class="footer-flag">✳</span><span>Trabajo Práctico 5<br><em>Programa tipográfico identitario «Rosario Tipográfica»</em></span></a>
+        <img class="footer-catedra-logo" src="logocatedra.png" alt="Logo de la cátedra">
+      </div>
+      <p>Carolina Luz Valentini <br>Gina Villani</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+  <script>
+    (function(){
+      var tl=document.querySelector('.tl'); if(!tl) return;
+      var items=[].slice.call(tl.querySelectorAll('.tl-item'));
+      var fill=tl.querySelector('.tl-fill');
+      var vertical=function(){return window.matchMedia('(max-width:1000px)').matches;};
+      var last=-1;
+      var lineStart=0;
+      function pos(it){
+        return vertical()
+            ? it.offsetTop + 10
+            : it.offsetLeft + it.offsetWidth / 2;
+      }
+      function setFill(){
+        var fillEnd=last<0?lineStart:pos(items[last]);
+        fill.style.setProperty('--fill',Math.max(0,fillEnd-lineStart)+'px');
+      }
+      function setLine(){
+        lineStart=pos(items[0]);
+        var lineEnd=pos(items[items.length-1]);
+        tl.style.setProperty('--line-start',lineStart+'px');
+        tl.style.setProperty('--line-length',Math.max(0,lineEnd-lineStart)+'px');
+        setFill();
+      }
+      function show(i){
+        items[i].classList.add('is-in');
+        if(i>last) last=i;
+        setFill();
+        if(i===items.length-1) setTimeout(function(){items[i].classList.add('is-live');},900);
+      }
+      setLine();
+      var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce||!('IntersectionObserver' in window)){
+        items.forEach(function(it,i){show(i);});
+        window.addEventListener('resize',setLine);
+        return;
+      }
+      tl.classList.add('js-tl');
+      var io=new IntersectionObserver(function(entries){
+        var idx=entries.filter(function(e){return e.isIntersecting;})
+          .map(function(e){return items.indexOf(e.target);})
+          .sort(function(a,b){return a-b;});
+        idx.forEach(function(i,n){
+          io.unobserve(items[i]);
+          setTimeout(function(){show(i);}, n*320);
+        });
+      },{threshold:.35,rootMargin:'0px 0px -8% 0px'});
+      items.forEach(function(it){io.observe(it);});
+      window.addEventListener('resize',setLine);
+    })();
+  </script>
+  <script>
+    (function(){
+      var sea=document.querySelector('.sea'); if(!sea) return;
+      var btns=[].slice.call(sea.querySelectorAll('.sea-name'));
+      var panel=sea.querySelector('.sea-panel');
+      var pNum=panel.querySelector('.sea-panel-num');
+      var pTitle=panel.querySelector('.sea-panel-title');
+      var pText=panel.querySelector('.sea-panel-text');
+      var pWhy=panel.querySelector('.sea-panel-why span');
+      var current=btns[0];
+
+      function ripple(b){
+        var s=sea.getBoundingClientRect(), r=b.getBoundingClientRect();
+        var el=document.createElement('span');
+        el.className='sea-ripple';
+        el.style.left=(r.left-s.left+24)+'px';
+        el.style.top=(r.top-s.top+r.height/2)+'px';
+        sea.appendChild(el);
+        setTimeout(function(){el.remove();},1500);
+      }
+
+      function select(b){
+        if(b===current) return;
+        current=b;
+        btns.forEach(function(x){
+          var on=x===b;
+          x.classList.toggle('is-active',on);
+          x.setAttribute('aria-pressed',on);
+        });
+        pNum.textContent=b.dataset.num;
+        pTitle.textContent=b.dataset.title;
+        pText.textContent=b.dataset.text;
+        pWhy.textContent=b.dataset.why;
+        panel.classList.remove('swap'); void panel.offsetWidth; panel.classList.add('swap');
+        ripple(b);
+      }
+
+      btns.forEach(function(b){
+        b.addEventListener('mouseenter',function(){select(b);});
+        b.addEventListener('focus',function(){select(b);});
+        b.addEventListener('click',function(){select(b);});
+      });
+
+      var chosen=sea.querySelector('.sea-chosen');
+      if('IntersectionObserver' in window){
+        var io=new IntersectionObserver(function(es){
+          es.forEach(function(e){ if(e.isIntersecting){chosen.classList.add('is-seen');io.disconnect();} });
+        },{threshold:.4});
+        io.observe(chosen);
+      } else { chosen.classList.add('is-seen'); }
+    })();
+  </script>
+  <script>
+    (function(){
+      var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var header=document.querySelector('.site-header');
+      var heroContent=document.querySelector('.hero-content');
+      var visitPhoto=document.querySelector('.visit-photo');
+      var archImgs=[].slice.call(document.querySelectorAll('.architecture-photo img'));
+
+      var bar=document.createElement('div');
+      bar.className='scroll-progress';
+      bar.setAttribute('aria-hidden','true');
+      document.body.appendChild(bar);
+
+      var ticking=false;
+      function update(){
+        ticking=false;
+        var y=window.pageYOffset, vh=window.innerHeight;
+        var max=document.documentElement.scrollHeight-vh;
+        bar.style.setProperty('--p',max>0?(y/max).toFixed(4):0);
+        if(header) header.classList.toggle('is-scrolled',y>40);
+        if(reduce) return;
+
+        if(heroContent&&y<vh){
+          heroContent.style.translate='0 '+(y*.18).toFixed(1)+'px';
+        }
+
+        archImgs.forEach(function(img){
+          var r=img.parentElement.getBoundingClientRect();
+          if(r.bottom<0||r.top>vh) return;
+          var p=((r.top+r.height/2)-vh/2)/vh;
+          img.style.translate='0 '+(p*-18).toFixed(1)+'px';
+        });
+
+        if(visitPhoto){
+          var v=visitPhoto.getBoundingClientRect();
+          if(v.bottom>0&&v.top<vh){
+            var pv=((v.top+v.height/2)-vh/2)/vh;
+            visitPhoto.style.setProperty('--py',(pv*-40).toFixed(1)+'px');
+          }
+        }
+      }
+      function onScroll(){
+        if(!ticking){ticking=true;requestAnimationFrame(update);}
+      }
+      window.addEventListener('scroll',onScroll,{passive:true});
+      window.addEventListener('resize',onScroll);
+      update();
+
+      var links=[].slice.call(document.querySelectorAll('.main-nav a[href^="#"]'));
+      var map={};
+      links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+      if('IntersectionObserver' in window){
+        var spy=new IntersectionObserver(function(es){
+          es.forEach(function(e){
+            if(e.isIntersecting&&map[e.target.id]){
+              links.forEach(function(l){l.classList.remove('is-current');});
+              map[e.target.id].classList.add('is-current');
+            }
+          });
+        },{rootMargin:'-45% 0px -50% 0px'});
+        Object.keys(map).forEach(function(id){
+          var section=document.getElementById(id);
+          if(section) spy.observe(section);
+        });
+      }
+
+      if(!reduce&&'IntersectionObserver' in window){
+        var imgs=[].slice.call(document.querySelectorAll('.history-image-wrap img, .first-sketch img, .first-test img'));
+        var imageTargets=imgs.map(function(img){
+          img.classList.add('curtain');
+          return img.closest('.history-image-wrap, .first-sketch, .first-test');
+        });
+        var curtainObserver=new IntersectionObserver(function(es){
+          es.forEach(function(e){
+            if(!e.isIntersecting) return;
+            var img=e.target.querySelector('img');
+            img.classList.add('is-open');
+            setTimeout(function(){img.classList.add('is-done');},1300);
+            curtainObserver.unobserve(e.target);
+          });
+        },{threshold:.2});
+        imageTargets.forEach(function(target){if(target) curtainObserver.observe(target);});
+      }
+    })();
+  </script>
+  <script>
+    (function(){
+      var sec=document.querySelector('.closing'); if(!sec) return;
+      var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduce||!('IntersectionObserver' in window)){sec.classList.add('is-seen');return;}
+      sec.classList.add('is-armed');
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(e){
+          if(e.isIntersecting){sec.classList.add('is-seen');io.disconnect();}
+        });
+      },{threshold:.3});
+      io.observe(sec);
+    })();
+  </script>
+</body>
+</html>
